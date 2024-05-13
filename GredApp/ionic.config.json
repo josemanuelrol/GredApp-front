@@ -1,0 +1,7 @@
+{
+  "name": "GredApp",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
