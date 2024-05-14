@@ -9,6 +9,7 @@ import { IonHeader, IonToolbar, IonTitle, IonContent, IonAlert, IonButton, IonTa
   imports: [IonButton, IonAlert, IonHeader, IonToolbar, IonTitle, IonContent],
 })
 export class HomePage {
-  alertButtons = ['Action'];
+
   constructor() {}
+
 }
