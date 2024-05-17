@@ -1,4 +1,4 @@
-import { routes } from './../../tasks/tasks.routes';
+import { routes } from './../../application/tasks/tasks.routes';
 import { inject } from '@angular/core';
 import { CanActivateFn, CanMatchFn, Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';

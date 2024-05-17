@@ -16,12 +16,12 @@ export class AuthService {
   constructor() {
   }
 
-  login(user: User):Observable<any> {
-    return this.http.post<any>(`${this.baseUrlApi}/auth/login`, user)
+  login(user: User):Promise<any> {
+    return firstValueFrom(this.http.post<any>(`${this.baseUrlApi}/auth/login`, user))
   }
 
-  register(user:User):Observable<any> {
-    return this.http.post<any>(`${this.baseUrlApi}/auth/register`, user)
+  register(user:User):Promise<any> {
+    return firstValueFrom(this.http.post<any>(`${this.baseUrlApi}/auth/register`, user))
   }
 
   validateToken(){

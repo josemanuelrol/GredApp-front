@@ -1,26 +1,25 @@
-<ion-content class="ion-padding">
-  <ion-card>
-    <ion-card-header class="ion-text-center">
-      <ion-card-title>Login</ion-card-title>
-    </ion-card-header>
-    <ion-card-content>
-      <ion-grid>
-        <ion-row class="ion-justify-content-center">
-          <ion-col>
-            <form [formGroup]="loginForm" (ngSubmit)="login()">
-              <ion-input type="text" fill="solid" label="Usuario" labelPlacement="floating"
-                helperText="Introduce tu usuario" errorText="Usuario requerido" [formControl]="usernameControl"
-                required="true" clearInput="true"></ion-input>
-              <ion-input type="password" fill="solid" label="Contraseña" labelPlacement="floating"
-                helperText="Introduce tu contraseña" errorText="Contraseña requerida" [formControl]="passwordControl"
-                required="true"></ion-input>
-                <div class="ion-text-center">
-                  <ion-button [disabled]="loginForm.invalid" class="ion-margin-top ion-padding-top" type="submit">Iniciar Sesión</ion-button>
-                </div>
-            </form>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-    </ion-card-content>
-  </ion-card>
+<ion-content class="ion-padding" scrollX="false" scrollX="false">
+  <div class="container">
+    <ion-card>
+      <ion-card-header class="ion-text-center">
+        <ion-card-title class="ion-margin-top">Login</ion-card-title>
+        <img src="../../../assets/illustration/undraw_mobile_login_re_9ntv.svg" alt="login illustration"
+          class="ion-padding">
+      </ion-card-header>
+      <ion-card-content>
+        <form [formGroup]="loginForm" (ngSubmit)="login()">
+          <ion-input type="text" fill="solid" label="Usuario" labelPlacement="floating"
+            helperText="Introduce tu usuario" errorText="Usuario requerido" [formControl]="usernameControl"
+            required="true" clearInput="true"></ion-input>
+          <ion-input type="password" fill="solid" label="Contraseña" labelPlacement="floating"
+            helperText="Introduce tu contraseña" errorText="Contraseña requerida" [formControl]="passwordControl"
+            required="true"></ion-input>
+          <div class="ion-text-center">
+            <ion-button [disabled]="loginForm.invalid" class="ion-margin-top ion-padding-top" type="submit">Login</ion-button>
+          </div>
+        </form>
+      </ion-card-content>
+    </ion-card>
+    <p>Doesn't have an account? <a href="auth/register" >Sign up</a></p>
+  </div>
 </ion-content>

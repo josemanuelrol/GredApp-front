@@ -4,6 +4,7 @@ import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } 
 import { IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent, IonRow, IonCol, IonGrid, IonInput, IonButton, IonIcon, IonToast, ToastController } from '@ionic/angular/standalone';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { Router } from '@angular/router';
+import { LoadingController } from '@ionic/angular'
 
 @Component({
   selector: 'app-login',
@@ -22,7 +23,7 @@ export class LoginPage implements OnInit {
   get usernameControl() {return this.loginForm.get('username') as FormControl}
   get passwordControl() {return this.loginForm.get('password') as FormControl}
 
-  constructor(private formBuilder:FormBuilder, private toastController: ToastController) {
+  constructor(private formBuilder:FormBuilder, private toastController: ToastController, private loadingController: LoadingController) {
     this.loginForm = formBuilder.group({
       username: new FormControl('', Validators.required),
       password: new FormControl('', Validators.required)
@@ -33,17 +34,18 @@ export class LoginPage implements OnInit {
     console.log("Login")
   }
 
-  login(){
-    this.authService.login(this.loginForm.value).subscribe({
-      next: (response) => {
-        console.log(response)
-        if (response.login){
-          localStorage.setItem('token', response.token)
+  async login(){
+    this.showLoading();
+    await this.authService.login(this.loginForm.value).then((result) => {
+      console.log(result)
+        if (result.login){
+          localStorage.setItem('token', result.token)
           this.router.navigate(['/app'])
+          this.loadingController.dismiss()
         }
-      },
-      error:async (error)=>{
-        localStorage.clear()
+    }).catch(async(error)=>{
+      localStorage.clear()
+      this.loadingController.dismiss()
         const toast = await this.toastController.create({
           message: error.error.error,
           duration: 2000,
@@ -51,12 +53,19 @@ export class LoginPage implements OnInit {
           icon: 'alert-outline'
         });
         await toast.present();
-      }
     });
   }
 
   async onClick(){
     console.log(localStorage.getItem('token'))
+  }
+
+  async showLoading() {
+    const loading = await this.loadingController.create({
+      message: 'Loading...',
+    });
+
+    loading.present();
   }
 
 }

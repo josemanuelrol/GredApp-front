@@ -4,6 +4,7 @@ import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, 
 import { IonContent, IonHeader, IonTitle, IonToolbar, IonCardTitle, ToastController, IonRow, IonCol, IonGrid, IonCardContent, IonCardHeader, IonCard, IonButton, IonInput, IonIcon } from '@ionic/angular/standalone';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { Router } from '@angular/router';
+import { LoadingController } from '@ionic/angular'
 
 @Component({
   selector: 'app-register',
@@ -23,7 +24,7 @@ export class RegisterPage implements OnInit {
   get passwordControl() {return this.registerForm.get('password') as FormControl}
   get emailControl() {return this.registerForm.get('email') as FormControl}
 
-  constructor(private formBuilder:FormBuilder, private toastController: ToastController) {
+  constructor(private formBuilder:FormBuilder, private toastController: ToastController, private loadingController: LoadingController) {
     this.registerForm = formBuilder.group({
       username: new FormControl('', Validators.required),
       password: new FormControl('', Validators.required),
@@ -36,22 +37,23 @@ export class RegisterPage implements OnInit {
   }
 
   register(){
-    this.authService.register(this.registerForm.value).subscribe({
-      next:async (response) => {
-        console.log(response)
-        if (response.mensaje){
+    this.showLoading()
+    this.authService.register(this.registerForm.value).then(async (result)=>{
+      console.log(result)
+        if (result.mensaje){
           const toast = await this.toastController.create({
-            message: response.mensaje,
+            message: result.mensaje,
             duration: 2000,
             position: "top",
             icon: 'globe'
           });
           await toast.present();
           this.router.navigate(['/auth/login'])
+          this.loadingController.dismiss()
         }
-      },
-      error:async (error)=>{
-        localStorage.clear()
+    }).catch(async (error)=>{
+      localStorage.clear();
+      this.loadingController.dismiss();
         const toast = await this.toastController.create({
           message: error.error.error,
           duration: 2000,
@@ -59,8 +61,15 @@ export class RegisterPage implements OnInit {
           icon: 'alert-outline'
         });
         await toast.present();
-      }
-    })
+    });
+  }
+
+  async showLoading() {
+    const loading = await this.loadingController.create({
+      message: 'Creating account...',
+    });
+
+    loading.present();
   }
 
 }

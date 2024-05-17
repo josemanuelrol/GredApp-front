@@ -8,7 +8,7 @@ export const routes: Routes = [
   },
   {
     path: 'app',
-    loadChildren: () => import('./main/main.routes').then((m) => m.routes),
+    loadChildren: () => import('./application/main/main.routes').then((m) => m.routes),
     canMatch: [authGuard]
   },
   {

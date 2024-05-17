@@ -1,4 +1,4 @@
-import { HeaderComponent } from './../shared/components/header/header.component';
+import { HeaderComponent } from './../../shared/components/header/header.component';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
