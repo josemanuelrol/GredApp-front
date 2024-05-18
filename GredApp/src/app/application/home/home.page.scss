@@ -25,3 +25,12 @@
 #container a {
   text-decoration: none;
 }
+
+ion-button{
+  width: 32px;
+  height: 32px;
+  ion-avatar{
+    width: 32px;
+    height: auto;
+  }
+}

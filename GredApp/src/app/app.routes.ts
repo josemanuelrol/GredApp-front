@@ -19,5 +19,9 @@ export const routes: Routes = [
   {
     path: '**',
     redirectTo: '404',
+  },
+  {
+    path: 'config-main',
+    loadComponent: () => import('./application/config/config-main/config-main.page').then( m => m.ConfigMainPage)
   }
 ];

@@ -1,24 +1,27 @@
-<app-header [nameTab]="nameTab"></app-header>
-<!-- <ion-content>
+<ion-content>
   <ion-router-outlet></ion-router-outlet>
-</ion-content> -->
-<ion-tabs (ionTabsDidChange)="getTab($event)">
+</ion-content>
+<ion-tabs>
   <ion-tab-bar slot="bottom" color="light">
     <ion-tab-button tab="home">
-      <ion-icon name="home-outline"></ion-icon>
-      Inicio
+      <ion-icon name="home"></ion-icon>
+      <ion-label>Inicio</ion-label>
     </ion-tab-button>
     <ion-tab-button tab="tasks">
-      <ion-icon name="checkbox-outline"></ion-icon>
-      Tareas
+      <ion-icon name="checkbox"></ion-icon>
+      <ion-label>Tareas</ion-label>
     </ion-tab-button>
     <ion-tab-button tab="notes">
-      <ion-icon name="clipboard-outline"></ion-icon>
-      Notas
+      <ion-icon name="clipboard"></ion-icon>
+      <ion-label>Notas</ion-label>
     </ion-tab-button>
     <ion-tab-button tab="calendar">
-      <ion-icon name="calendar-outline"></ion-icon>
-      Calendario
+      <ion-icon name="calendar-number"></ion-icon>
+      <ion-label>Calendario</ion-label>
+    </ion-tab-button>
+    <ion-tab-button tab="config">
+      <ion-icon name="settings-sharp"></ion-icon>
+      <ion-label>Configuración</ion-label>
     </ion-tab-button>
   </ion-tab-bar>
 </ion-tabs>

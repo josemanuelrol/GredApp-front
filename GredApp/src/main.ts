@@ -18,6 +18,6 @@ bootstrapApplication(AppComponent, {
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy},
     provideIonicAngular({mode:'ios'}),
     provideRouter(routes, withViewTransitions()),
-    provideHttpClient(withInterceptors([authInterceptor]))
+    provideHttpClient(withInterceptors([authInterceptor])),
   ],
 });

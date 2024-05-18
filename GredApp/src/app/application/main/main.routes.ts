@@ -22,6 +22,10 @@ export const routes: Routes = [
         loadChildren: () => import('../calendar/calendar.routes').then((m) => m.routes),
       },
       {
+        path: 'config',
+        loadChildren: () => import('../config/config.routes').then((m) => m.routes),
+      },
+      {
         path: '',
         redirectTo: 'home',
         pathMatch: 'full',
