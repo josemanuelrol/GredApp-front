@@ -3,7 +3,7 @@ import { TaskList } from "./task-list";
 
 export interface Task {
   _id?:ID
-  listaTareas?:TaskList,
+  listaTareas_id?:string,
   titulo?:string,
   descripcion?:string,
   fecha?:Date,
