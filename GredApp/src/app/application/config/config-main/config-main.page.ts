@@ -15,6 +15,7 @@ export class ConfigMainPage implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    console.log("Configuración")
   }
 
 }

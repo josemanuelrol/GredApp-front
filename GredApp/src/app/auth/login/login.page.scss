@@ -3,11 +3,12 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
+  height: 100svh;
+  // position: absolute;
+  // left: 0;
+  // right: 0;
+  // top: 50%;
+  // transform: translateY(-50%);
 }
 
 ion-card{
@@ -17,7 +18,7 @@ ion-card{
 }
 
 img {
-  width: clamp(30%, 90%, 450px)
+  width: clamp(40%, 100%, 500px)
 }
 
 ion-card-header{

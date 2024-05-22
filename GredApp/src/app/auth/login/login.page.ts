@@ -5,6 +5,7 @@ import { IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonC
 import { AuthService } from 'src/app/core/services/auth.service';
 import { Router } from '@angular/router';
 import { LoadingController } from '@ionic/angular'
+import { UserService } from 'src/app/core/services/user.service';
 
 @Component({
   selector: 'app-login',
@@ -16,6 +17,7 @@ import { LoadingController } from '@ionic/angular'
 export class LoginPage implements OnInit {
 
   authService = inject(AuthService);
+  userService = inject(UserService);
   router = inject(Router)
 
   loginForm:FormGroup;
@@ -39,6 +41,7 @@ export class LoginPage implements OnInit {
     await this.authService.login(this.loginForm.value).then((result) => {
       console.log(result)
         if (result.login){
+          localStorage.setItem('userID',result.user_id)
           localStorage.setItem('token', result.token)
           this.router.navigate(['/app'])
           this.loadingController.dismiss()

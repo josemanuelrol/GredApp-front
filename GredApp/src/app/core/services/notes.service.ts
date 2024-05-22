@@ -27,6 +27,10 @@ export class NotesService {
     return firstValueFrom(this.http.get<Note>(`${this.baseUrlApi}/nota/${id}`));
   }
 
+  getNotesByUser(idUser:string):Promise<Note[]>{
+    return firstValueFrom(this.http.get<Note[]>(`${this.baseUrlApi}/user/${idUser}/notas`));
+  }
+
   updateNote(id:string, note:Note):Promise<any>{
     return firstValueFrom(this.http.put<any>(`${this.baseUrlApi}/nota/${id}`, note));
   }
