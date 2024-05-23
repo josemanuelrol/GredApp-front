@@ -1,0 +1,17 @@
+.container{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.titleNote{
+  font-size: 32px;
+  font-weight: 800;
+}
+
+.bodyNote{
+  padding: 0;
+  margin: 0;
+}
+

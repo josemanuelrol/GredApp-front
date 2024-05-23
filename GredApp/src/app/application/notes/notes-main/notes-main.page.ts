@@ -1,21 +1,24 @@
+import { ID } from './../../../core/models/id';
 import { Event } from './../../../core/models/event';
-import { Component, OnInit, inject } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, QueryList, ViewChild, ViewChildren, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonSearchbar } from '@ionic/angular/standalone';
+import { IonContent, IonHeader, IonTitle, IonToolbar, IonSearchbar, IonCard, IonCardHeader, IonCardContent, IonCardTitle, IonIcon, IonFab, IonFabButton, IonRefresher, IonRefresherContent } from '@ionic/angular/standalone';
 import { Note } from 'src/app/core/models/note';
 import { NotesService } from 'src/app/core/services/notes.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-notes-main',
   templateUrl: './notes-main.page.html',
   styleUrls: ['./notes-main.page.scss'],
   standalone: true,
-  imports: [IonSearchbar, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule]
+  imports: [IonRefresherContent, IonRefresher, IonFabButton, IonFab, IonIcon, IonCardTitle, IonCardContent, IonCardHeader, IonCard, IonSearchbar, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule]
 })
 export class NotesMainPage implements OnInit {
 
   notesService = inject(NotesService);
+  private router = inject(Router);
 
   notesList: Note[];
   notesListResult: Note[];
@@ -23,7 +26,7 @@ export class NotesMainPage implements OnInit {
 
   constructor() {
     this.notesList = [];
-    this.notesListResult = [];
+    this.notesListResult = [...this.notesList];
     this.userId = localStorage.getItem('userID')!;
   }
 
@@ -33,13 +36,45 @@ export class NotesMainPage implements OnInit {
       this.notesList = response;
       this.notesListResult = [...this.notesList]
     }).catch((error)=>{
-      alert(error.error.error);
+        alert(error.error.error);
+      });
+  }
+
+  handleRefresh(event:any){
+    this.notesService.getNotesByUser(this.userId).then((response) => {
+      this.notesList = response;
+      this.notesListResult = [...this.notesList]
+      event.target.complete()
+    }).catch((error)=>{
+        alert(error.error.error);
     });
   }
 
   handleInput(event: any) {
     const query = event.target.value.toLowerCase();
     this.notesListResult = this.notesList.filter((n) => n.titulo.toLowerCase().indexOf(query) > -1);
+  }
+
+  trackItems(index: number, itemObject: any) {
+    return itemObject._id;
+  }
+
+  onClick(note:Note){
+    this.router.navigate(['app/notes/note-detail'],{
+      state:{
+        key: note._id!.$oid,
+        data: note
+      }
+    })
+  }
+
+  createNote(){
+    this.router.navigate(['app/notes/note-detail'], {
+      state: {
+        key: 0,
+        data: {titulo: '', contenido: ''}
+      }
+    });
   }
 
 }

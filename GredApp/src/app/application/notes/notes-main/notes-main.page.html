@@ -1,12 +1,34 @@
-<ion-header collapse="fade" class="ion-no-border ion-margin-top">
-  <ion-toolbar>
+<ion-header class="ion-no-border" collapse="condense" [translucent]="true">
+  <ion-toolbar class="ion-padding-top">
     <ion-title size="large"> Notas </ion-title>
   </ion-toolbar>
   <ion-toolbar>
     <ion-searchbar (ionInput)="handleInput($event)" placeholder="Buscar" animated="true" inputmode="search" color="light"></ion-searchbar>
   </ion-toolbar>
 </ion-header>
-<ion-content class="ion-padding" [fullscreen]="true">
-
-
+<ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+    <ion-fab-button size="small" color="light" (click)="createNote()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+  @if (this.notesListResult.length) {
+  <div class="notes-container">
+    <ion-card button (click)="onClick(note)" *ngFor="let note of notesListResult; trackBy:trackItems">
+      <ion-card-header>
+        <ion-card-title>{{note.titulo}}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        {{note.contenido}}
+      </ion-card-content>
+    </ion-card>
+  </div>
+  }@else {
+    <div class="emptyMessage">
+      <h2>No tienes ninguna nota</h2>
+    </div>
+  }
 </ion-content>
