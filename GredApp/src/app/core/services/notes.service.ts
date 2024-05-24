@@ -2,12 +2,14 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { Note } from '../models/note';
-import { firstValueFrom } from 'rxjs';
+import { Observable, Subject, firstValueFrom } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class NotesService {
+
+  private dataUpdated = new Subject<void>();
 
   private readonly baseUrlApi: string = environment.baseUrlApi;
 
@@ -37,5 +39,13 @@ export class NotesService {
 
   deleteNote(id:string):Promise<any>{
     return firstValueFrom(this.http.delete<any>(`${this.baseUrlApi}/nota/${id}`));
+  }
+
+  emitDataUpdated(){
+    this.dataUpdated.next();
+  }
+
+  onDataUpdate():Observable<any>{
+    return this.dataUpdated.asObservable()
   }
 }

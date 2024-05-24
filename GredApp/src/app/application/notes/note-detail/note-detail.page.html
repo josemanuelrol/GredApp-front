@@ -1,9 +1,11 @@
 <ion-header collapse="condense" class="ion-no-border">
   <ion-toolbar>
     <ion-back-button slot="start" color="dark" (click)="onBack()"></ion-back-button>
-    <ion-button slot="end" fill="clear" color="dark" (click)="onDelete()">
-      <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
-    </ion-button>
+    @if (this.note.titulo !== ''){
+      <ion-button slot="end" fill="clear" color="dark" (click)="onDelete()">
+        <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+      </ion-button>
+    }
   </ion-toolbar>
 </ion-header>
 <ion-content>

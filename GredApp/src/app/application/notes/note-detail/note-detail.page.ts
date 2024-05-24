@@ -39,6 +39,7 @@ export class NoteDetailPage implements OnInit {
         role: 'delete',
         handler: () => {
           this.notesService.deleteNote(this.note._id!.$oid).then((response)=>{
+            this.notesService.emitDataUpdated();
             this.router.navigate(['app/notes']);
           }).catch((error)=>{
             console.log(error)
@@ -65,7 +66,7 @@ export class NoteDetailPage implements OnInit {
     if (this.note.titulo == '' && this.note.contenido == ''){
       if (this.tituloControl.valid){
         this.notesService.createNote(note).then((response)=>{
-
+          this.notesService.emitDataUpdated();
         }).catch((error)=>{
           console.log(error);
         })
@@ -73,7 +74,7 @@ export class NoteDetailPage implements OnInit {
     }else if (this.note.titulo != ''){
       if (this.note.titulo != this.tituloControl.getRawValue() || this.note.contenido != this.contenidoControl.getRawValue())
       this.notesService.updateNote(this.note._id!.$oid, note).then((response)=>{
-
+        this.notesService.emitDataUpdated();
       }).catch((error)=>{
         console.log(error);
       })

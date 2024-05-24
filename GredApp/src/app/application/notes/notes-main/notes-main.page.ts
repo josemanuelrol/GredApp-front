@@ -7,6 +7,7 @@ import { IonContent, IonHeader, IonTitle, IonToolbar, IonSearchbar, IonCard, Ion
 import { Note } from 'src/app/core/models/note';
 import { NotesService } from 'src/app/core/services/notes.service';
 import { Router } from '@angular/router';
+import { LoadingController } from '@ionic/angular'
 
 @Component({
   selector: 'app-notes-main',
@@ -23,18 +24,27 @@ export class NotesMainPage implements OnInit {
   notesList: Note[];
   notesListResult: Note[];
   userId:string;
+  emptyMessage:string = ''
 
-  constructor() {
+  constructor(private loadingController: LoadingController) {
+    this.notesService.onDataUpdate().subscribe(()=>this.loadNotes());
     this.notesList = [];
     this.notesListResult = [...this.notesList];
     this.userId = localStorage.getItem('userID')!;
   }
 
   ngOnInit() {
-    console.log("Notas")
+    console.log("Notas");
+    this.loadNotes();
+  }
+
+  loadNotes(){
+    this.showLoading();
     this.notesService.getNotesByUser(this.userId).then((response) => {
       this.notesList = response;
       this.notesListResult = [...this.notesList]
+      this.emptyMessage = 'No tienes notas todavía'
+      this.loadingController.dismiss()
     }).catch((error)=>{
         alert(error.error.error);
       });
@@ -53,6 +63,14 @@ export class NotesMainPage implements OnInit {
   handleInput(event: any) {
     const query = event.target.value.toLowerCase();
     this.notesListResult = this.notesList.filter((n) => n.titulo.toLowerCase().indexOf(query) > -1);
+  }
+
+  async showLoading() {
+    const loading = await this.loadingController.create({
+      message: 'Loading...',
+    });
+
+    loading.present();
   }
 
   trackItems(index: number, itemObject: any) {
