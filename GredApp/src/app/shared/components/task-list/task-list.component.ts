@@ -17,6 +17,8 @@ export class TaskListComponent implements OnInit {
 
   mainTaskList = input.required<TaskList>();
 
+  emptyMessage = "";
+
   constructor() { }
 
   ngOnInit() {
@@ -32,17 +34,23 @@ export class TaskListComponent implements OnInit {
     });
   }
 
-  onClick(task: Task, event: any) {
+  async onClick(task: Task, event: any) {
     console.log(event.detail.checked)
     let update = {
       completed: event.detail.checked,
     }
-    this.taskListService.updateTask(this.mainTaskList()._id!.$oid, task._id!.$oid, update).then((response) => {
+    await this.taskListService.updateTask(this.mainTaskList()._id!.$oid, task._id!.$oid, update).then((response) => {
       //Hacer servicio de mensaje toast
       this.taskListService.emitDataUpdateCheckedTask();
     }).catch((error) => {
       console.log(error);
     });
+  }
+
+  checkEmptyListTask(){
+    if (this.mainTaskList()!.tareas!.length == 0){
+      this.emptyMessage = "No tienes tareas pendientes"
+    }
   }
 
 }

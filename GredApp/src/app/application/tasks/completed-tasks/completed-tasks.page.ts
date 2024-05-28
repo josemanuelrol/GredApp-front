@@ -24,6 +24,7 @@ export class CompletedTasksPage implements OnInit {
   taskLists:TaskList[];
   tasks:Task[];
   userID:string;
+  emptyMessage = "";
 
   constructor(private loadingController:LoadingController) {
     this.userID = localStorage.getItem('userID')!;
@@ -37,6 +38,7 @@ export class CompletedTasksPage implements OnInit {
     this.showLoading();
     this.tasksListService.getCompletedTasks(this.userID).then((response)=>{
       this.tasks = response;
+      this.checkEmptyListTask();
       this.tasksListService.getTasksByUser(this.userID).then((response) => {
         this.taskLists = response;
       })
@@ -49,6 +51,7 @@ export class CompletedTasksPage implements OnInit {
   loadCompletedTask(){
     this.tasksListService.getCompletedTasks(this.userID).then((response) => {
       this.tasks = response;
+      this.checkEmptyListTask();
     }).catch((error) => {
       console.log(error);
     })
@@ -96,6 +99,12 @@ export class CompletedTasksPage implements OnInit {
       })
     }
     return taskListID;
+  }
+
+  checkEmptyListTask(){
+    if (this.tasks.length == 0){
+      this.emptyMessage = "No tienes tareas completadas"
+    }
   }
 
 }

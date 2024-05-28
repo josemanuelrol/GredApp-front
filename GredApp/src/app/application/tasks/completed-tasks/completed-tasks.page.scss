@@ -1,4 +1,4 @@
-ion-checkbox > ion-label:nth-child(2){
+ion-item > ion-checkbox > ion-label:nth-child(2){
   font-size: 14px;
   opacity: 0.6;
  }
@@ -6,3 +6,11 @@ ion-checkbox > ion-label:nth-child(2){
  ion-item-sliding{
   border-radius: 6px;
  }
+
+ .mainTaskList > ion-label{
+    padding-left: 16px;
+    font-size: 22px;
+    font-weight: 500;
+    margin-bottom: 4px;
+  }
+
