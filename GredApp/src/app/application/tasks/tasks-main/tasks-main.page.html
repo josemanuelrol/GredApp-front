@@ -1,11 +1,45 @@
-<ion-header collapse="fade" class="ion-no-border ion-margin-top">
+<ion-header collapse="condense" class="ion-no-border">
+  <ion-toolbar class="ion-padding-top">
+    <ion-title size="large">Mis listas</ion-title>
+    <ion-buttons slot="end">
+      <ion-button shape="round" color="dark" (click)="setOpenActionSheet(true)">
+        <ion-icon slot="icon-only" name="ellipsis-horizontal"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
   <ion-toolbar>
-    <ion-title size="large"> Tareas </ion-title>
+    <ion-searchbar (ionInput)="handleInput($event)" placeholder="Buscar" animated="true" inputmode="search"
+      color="light"></ion-searchbar>
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding">
-
-  <h1>Pestaña Tareas</h1>
-
+<ion-content>
+  <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+    <ion-fab-button size="small" color="dark" (click)="createTask()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+  <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <div class="task-container">
+    <ion-card button (click)="onClick(list)" *ngFor="let list of this.taskListsResult; trackBy:trackItems">
+      <ion-card-header>
+        <ion-card-title>
+          <ion-icon name="list"></ion-icon>
+          {{list.nombre}}
+        </ion-card-title>
+      </ion-card-header>
+    </ion-card>
+  </div>
+  <div class="mainTaskList">
+    <ion-label>{{this.mainTaskList.nombre}}</ion-label>
+    <app-task-list [mainTaskList]="this.mainTaskList"></app-task-list>
+  </div>
+  <ion-action-sheet
+  [isOpen]="isActionSheetOpen"
+  header="Más opciones"
+  [buttons]="actionSheetButtons"
+  (didDismiss)="handleResult($event, false)"
+></ion-action-sheet>
 </ion-content>

@@ -1,16 +1,16 @@
-<ion-content scrollX="false" scrollX="false">
+<ion-content scrollY="false" scrollX="false">
   <div class="container">
     <ion-card>
       <ion-card-header class="ion-text-center">
-        <img src="../../../assets/logo/logo.png" alt="app logo">
-        <ion-card-subtitle class="ion-margin-top">Login</ion-card-subtitle>
+        <!-- <img src="../../../assets/logo/logo.png" alt="app logo"> -->
+        <ion-card-title class="ion-margin-top">Login</ion-card-title>
       </ion-card-header>
       <ion-card-content>
         <form [formGroup]="loginForm" (ngSubmit)="login()">
-          <ion-input type="text" fill="solid" label="Usuario" labelPlacement="floating"
+          <ion-input type="text" fill="solid" inputmode="text" label="Usuario" labelPlacement="floating"
             helperText="Introduce tu usuario" errorText="Usuario requerido" [formControl]="usernameControl"
             required="true" clearInput="true"></ion-input>
-          <ion-input type="password" fill="solid" label="Contraseña" labelPlacement="floating"
+          <ion-input type="password" fill="solid" inputmode="password" label="Contraseña" labelPlacement="floating"
             helperText="Introduce tu contraseña" errorText="Contraseña requerida" [formControl]="passwordControl"
             required="true"></ion-input>
           <div class="ion-text-center">

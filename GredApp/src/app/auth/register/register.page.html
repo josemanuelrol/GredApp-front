@@ -1,9 +1,9 @@
-<ion-content class="ion-padding">
+<ion-content scrollY="false" scrollX="false">
   <div class="container">
     <ion-card>
       <ion-card-header class="ion-text-center">
-        <img src="../../../assets/logo/logo.png" alt="app logo">
-        <ion-card-subtitle class="ion-margin-top">Register</ion-card-subtitle>
+        <!-- <img src="../../../assets/logo/logo.png" alt="app logo"> -->
+        <ion-card-title class="ion-margin-top">Register</ion-card-title>
       </ion-card-header>
       <ion-card-content>
         <form [formGroup]="registerForm" (ngSubmit)="register()">

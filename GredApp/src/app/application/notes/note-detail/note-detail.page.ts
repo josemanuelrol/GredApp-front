@@ -1,7 +1,7 @@
 import { Router } from '@angular/router';
-import { Component, Input, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormControl, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { IonContent, IonHeader, IonTitle, IonToolbar, IonSearchbar, IonTextarea, IonButton, IonIcon, IonBackButton } from '@ionic/angular/standalone';
 import { Note } from 'src/app/core/models/note';
 import { NotesService } from 'src/app/core/services/notes.service';
@@ -46,7 +46,7 @@ export class NoteDetailPage implements OnInit {
           })
         },
       }
-    ]
+    ];
   }
 
   ngOnInit() {

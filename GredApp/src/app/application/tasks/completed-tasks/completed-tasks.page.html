@@ -1,0 +1,35 @@
+<ion-header collapse="condense" class="ion-no-border">
+  <ion-toolbar>
+    <ion-back-button slot="start" color="dark"></ion-back-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-header>
+    <ion-title size="large">Tareas completadas</ion-title>
+  </ion-header>
+  <div class="mainTaskList ion-padding-end">
+    <ion-list>
+      @for (task of this.tasks; track task._id) {
+        <ion-item-sliding>
+          <ion-item>
+            <ion-checkbox (ionChange)="onClick(task, $event)" [checked]="task.completed" labelPlacement="end"
+            justify="start">
+            <ion-label>
+              {{task.titulo}}
+            </ion-label>
+            @if (task.descripcion){
+              <ion-label>
+                {{task.descripcion}}
+              </ion-label>
+            }
+          </ion-checkbox>
+        </ion-item>
+        <ion-item-options>
+          <ion-item-option color="danger" (click)="onDelete(task)">Eliminar</ion-item-option>
+        </ion-item-options>
+      </ion-item-sliding>
+    }
+    </ion-list>
+  </div>
+</ion-content>

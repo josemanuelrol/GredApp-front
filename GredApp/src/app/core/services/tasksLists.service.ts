@@ -2,13 +2,21 @@ import { TaskList } from '../models/task-list';
 import { Task } from '../models/task';
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-import { first, firstValueFrom } from 'rxjs';
+import { Observable, Subject, first, firstValueFrom } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TasksListsService {
+
+  private dataUpdatedNewTask = new Subject<void>;
+
+  private dataUpdatedDeleteTask = new Subject<void>;
+
+  private dataUpdatedCheckedTask = new Subject<void>;
+
+  private dataUpdatedList = new Subject<void>;
 
   private readonly baseUrlApi: string = environment.baseUrlApi;
 
@@ -48,6 +56,10 @@ export class TasksListsService {
     return firstValueFrom(this.http.get<Task[]>(`${this.baseUrlApi}/listaTareas/${idList}/getTasks`));
   }
 
+  getCompletedTasks(user_id:string):Promise<Task[]>{
+    return firstValueFrom(this.http.get<Task[]>(`${this.baseUrlApi}/listaTareas/getCompletedTasks/${user_id}`));
+  }
+
   getTaskById(idList:string, idTask:string):Promise<Task>{
     return firstValueFrom(this.http.get<Task>(`${this.baseUrlApi}/listaTareas/${idList}/getTask/${idTask}`));
   }
@@ -62,6 +74,38 @@ export class TasksListsService {
 
   deleteTask(idList:string, idTask:string):Promise<any>{
     return firstValueFrom(this.http.put<any>(`${this.baseUrlApi}/listaTareas/${idList}/deleteTask/${idTask}`, {}))
+  }
+
+  emitDataUpdatedList(){
+    this.dataUpdatedList.next();
+  }
+
+  onDataUpdateList():Observable<any>{
+    return this.dataUpdatedList.asObservable();
+  }
+
+  emitDataUpdateNewTask(){
+    this.dataUpdatedNewTask.next();
+  }
+
+  onDataUpdateNewTask(){
+    return this.dataUpdatedNewTask.asObservable();
+  }
+
+  emitDataUpdateDeleteTask(){
+    this.dataUpdatedDeleteTask.next();
+  }
+
+  onDataUpdateDeleteTask(){
+    return this.dataUpdatedDeleteTask.asObservable();
+  }
+
+  emitDataUpdateCheckedTask(){
+    this.dataUpdatedCheckedTask.next();
+  }
+
+  onDataUpdateCheckedTask(){
+    return this.dataUpdatedCheckedTask.asObservable();
   }
 
 }

@@ -6,16 +6,12 @@ export const routes: Routes = [
     loadComponent: () => import('./main.page').then((m) => m.MainPage),
     children: [
       {
-        path: 'home',
-        loadComponent: () => import('../home/home.page').then((m) => m.HomePage),
+        path: 'tasks',
+        loadChildren: () => import('../tasks/tasks.routes').then((m) => m.routes),
       },
       {
         path: 'notes',
         loadChildren: () => import('../notes/notes.routes').then((m) => m.routes),
-      },
-      {
-        path: 'tasks',
-        loadChildren: () => import('../tasks/tasks.routes').then((m) => m.routes),
       },
       {
         path: 'calendar',
@@ -27,7 +23,7 @@ export const routes: Routes = [
       },
       {
         path: '',
-        redirectTo: 'home',
+        redirectTo: 'tasks',
         pathMatch: 'full',
       }
     ]
