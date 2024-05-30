@@ -5,6 +5,5 @@ export interface Task {
   titulo?:string,
   descripcion?:string,
   fecha?:Date,
-  prioridad?:string,
   completed?:boolean
 }
