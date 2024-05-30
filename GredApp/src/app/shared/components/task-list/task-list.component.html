@@ -2,8 +2,7 @@
   <ion-list>
     @for (task of this.mainTaskList()!.tareas; track task._id) {
     <ion-item-sliding>
-      <!-- @if (!task.completed){ -->
-      <ion-item>
+      <ion-item lines="none">
         <ion-checkbox (ionChange)="onClick(task, $event)" [checked]="task.completed" labelPlacement="end"
           justify="start">
           <ion-label>
@@ -17,9 +16,9 @@
         </ion-checkbox>
       </ion-item>
       <ion-item-options>
+        <ion-item-option color="primary" (click)="openModal(task)">Editar</ion-item-option>
         <ion-item-option color="danger" (click)="onDelete(task)">Eliminar</ion-item-option>
       </ion-item-options>
-      <!-- } -->
     </ion-item-sliding>
     }
   </ion-list>

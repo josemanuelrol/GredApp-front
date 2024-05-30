@@ -36,10 +36,6 @@
     <ion-label>{{this.mainTaskList.nombre}}</ion-label>
     <app-task-list [mainTaskList]="this.mainTaskList"></app-task-list>
   </div>
-  <ion-action-sheet
-  [isOpen]="isActionSheetOpen"
-  header="Más opciones"
-  [buttons]="actionSheetButtons"
-  (didDismiss)="handleResult($event, false)"
-></ion-action-sheet>
+  <ion-action-sheet [isOpen]="isActionSheetOpen" header="Más opciones" [buttons]="actionSheetButtons"
+    (didDismiss)="handleResult($event, false)"></ion-action-sheet>
 </ion-content>

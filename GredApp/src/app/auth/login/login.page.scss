@@ -1,9 +1,16 @@
-.container{
+ion-col{
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  // height: 100dvh;
+  // position: absolute;
+  // left: 0;
+  // right: 0;
+  // top: 50%;
+  // transform: translateY(-50%);
+}
+
+ion-grid{
   position: absolute;
   left: 0;
   right: 0;

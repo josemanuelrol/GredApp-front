@@ -1,7 +1,7 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent, IonRow, IonCol, IonGrid, IonInput, IonButton, IonIcon, IonToast, ToastController } from '@ionic/angular/standalone';
+import { IonThumbnail, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent, IonRow, IonCol, IonGrid, IonInput, IonButton, IonIcon, IonToast, ToastController, IonLabel } from '@ionic/angular/standalone';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { Router } from '@angular/router';
 import { LoadingController } from '@ionic/angular'
@@ -12,7 +12,7 @@ import { UserService } from 'src/app/core/services/user.service';
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
   standalone: true,
-  imports: [IonIcon, IonButton, IonInput, IonGrid, IonCol, IonRow, IonCardContent, IonCardSubtitle, IonCardTitle, IonCardHeader, IonCard, IonContent, CommonModule, ReactiveFormsModule, IonToast]
+  imports: [IonThumbnail, IonLabel, IonIcon, IonButton, IonInput, IonGrid, IonCol, IonRow, IonCardContent, IonCardSubtitle, IonCardTitle, IonCardHeader, IonCard, IonContent, CommonModule, ReactiveFormsModule, IonToast]
 })
 export class LoginPage implements OnInit {
 

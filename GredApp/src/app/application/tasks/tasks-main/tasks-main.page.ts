@@ -1,10 +1,9 @@
 import { TaskListComponent } from '../../../shared/components/task-list/task-list.component';
-import { Task } from './../../../core/models/task';
-import { Component, OnChanges, OnInit, SimpleChanges, inject } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonRefresher, IonRefresherContent, IonFab, IonFabButton, IonIcon, IonButton, IonSegment, IonSegmentButton, IonLabel, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonSearchbar, IonList, IonListHeader, IonItem, IonCheckbox, IonItemSliding, IonItemOptions, IonItemOption, IonButtons, IonActionSheet } from '@ionic/angular/standalone';
-import { ActionSheetController, LoadingController, AlertController } from '@ionic/angular';
+import { IonContent, IonHeader, IonTitle, IonToolbar, IonRefresher, IonRefresherContent, IonFab, IonFabButton, IonIcon, IonButton, IonSegment, IonSegmentButton, IonLabel, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonSearchbar, IonList, IonListHeader, IonItem, IonCheckbox, IonItemSliding, IonItemOptions, IonItemOption, IonButtons, IonActionSheet, IonGrid, IonCol, IonRow, IonModal } from '@ionic/angular/standalone';
+import { LoadingController, AlertController } from '@ionic/angular';
 import { TasksListsService } from 'src/app/core/services/tasksLists.service';
 import { TaskList } from 'src/app/core/models/task-list';
 import { Router } from '@angular/router';
@@ -15,7 +14,7 @@ import { Router } from '@angular/router';
   templateUrl: './tasks-main.page.html',
   styleUrls: ['./tasks-main.page.scss'],
   standalone: true,
-  imports: [IonActionSheet, IonButtons, TaskListComponent ,IonItemOption, IonItemOptions, IonItemSliding, IonCheckbox, IonItem, IonListHeader, IonList, IonSearchbar, IonCardContent, IonCardTitle, IonCardHeader, IonCard, IonLabel, IonSegmentButton, IonSegment, IonButton, IonIcon, IonFabButton, IonFab, IonRefresherContent, IonRefresher, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule]
+  imports: [IonModal, IonRow, IonCol, IonGrid, IonActionSheet, IonButtons, TaskListComponent ,IonItemOption, IonItemOptions, IonItemSliding, IonCheckbox, IonItem, IonListHeader, IonList, IonSearchbar, IonCardContent, IonCardTitle, IonCardHeader, IonCard, IonLabel, IonSegmentButton, IonSegment, IonButton, IonIcon, IonFabButton, IonFab, IonRefresherContent, IonRefresher, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule]
 })
 export class TasksMainPage implements OnInit {
 
