@@ -1,11 +1,9 @@
-import { Calendar } from "./calendar";
 import { ID } from "./id";
 
 export interface Event {
   _id?:ID,
-  calendar?:Calendar,
+  user_id?:string,
   titulo?:string,
-  fecha?:Date,
-  fecha_final?:Date,
-  hora?:Date
+  fecha?:string,
+  allDay?:boolean
 }

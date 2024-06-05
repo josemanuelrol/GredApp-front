@@ -2,11 +2,11 @@ import { TaskListComponent } from '../../../shared/components/task-list/task-lis
 import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonRefresher, IonRefresherContent, IonFab, IonFabButton, IonIcon, IonButton, IonSegment, IonSegmentButton, IonLabel, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonSearchbar, IonList, IonListHeader, IonItem, IonCheckbox, IonItemSliding, IonItemOptions, IonItemOption, IonButtons, IonActionSheet, IonGrid, IonCol, IonRow, IonModal } from '@ionic/angular/standalone';
-import { LoadingController, AlertController } from '@ionic/angular';
+import { LoadingController, AlertController, IonContent, IonHeader, IonTitle, IonToolbar, IonRefresher, IonRefresherContent, IonFab, IonFabButton, IonIcon, IonButton, IonSegment, IonSegmentButton, IonLabel, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonSearchbar, IonList, IonListHeader, IonItem, IonCheckbox, IonItemSliding, IonItemOptions, IonItemOption, IonButtons, IonActionSheet, IonGrid, IonCol, IonRow, IonModal } from '@ionic/angular/standalone';
 import { TasksListsService } from 'src/app/core/services/tasksLists.service';
 import { TaskList } from 'src/app/core/models/task-list';
 import { Router } from '@angular/router';
+import { ToastServiceService } from 'src/app/core/services/toast-service.service';
 
 
 @Component({
@@ -20,6 +20,7 @@ export class TasksMainPage implements OnInit {
 
   private taskListService = inject(TasksListsService);
   private router = inject(Router);
+  private toastService = inject(ToastServiceService);
 
   userID:string;
   taskLists:TaskList[];
@@ -65,9 +66,10 @@ export class TasksMainPage implements OnInit {
             tareas: []
           }
           this.taskListService.createTaskList(newList).then((response)=>{
+            this.toastService.presentSuccessToast('top','Lista de tareas creada');
             this.taskListService.emitDataUpdatedList();
           }).catch((error)=>{
-            console.log(error);
+            this.toastService.presentErrorToast('top','Ha ocurrido un error');
           })
         }
       }
@@ -93,9 +95,10 @@ export class TasksMainPage implements OnInit {
             descripcion: data[1]
           }
           this.taskListService.addTask(this.mainTaskList._id!.$oid, newTask).then((response)=>{
+            this.toastService.presentSuccessToast('top','Tarea creada');
             this.taskListService.emitDataUpdateNewTask();
           }).catch((error)=>{
-            console.log(error);
+            this.toastService.presentErrorToast('top','Ha ocurrido un error');
           })
         }
       }
@@ -125,7 +128,6 @@ export class TasksMainPage implements OnInit {
   }
 
   ngOnInit() {
-    console.log("Tareas")
     this.loadTaskList();
   }
 
@@ -140,7 +142,7 @@ export class TasksMainPage implements OnInit {
       event.target.complete();
     }).catch((error)=>{
       event.target.complete();
-      console.log(error);
+      this.toastService.presentErrorToast('top','Ha ocurrido un error');
     });
   }
 
@@ -163,7 +165,6 @@ export class TasksMainPage implements OnInit {
 
   handleResult(ev:any, isOpen:boolean) {
     this.isActionSheetOpen = isOpen;
-    console.log(ev.detail);
     if (ev.detail.role == 'completedTasks'){
       this.router.navigate(['app/tasks/completed-tasks']);
     }else if (ev.detail.role == 'newTaskList'){
@@ -187,7 +188,7 @@ export class TasksMainPage implements OnInit {
       this.loadingController.dismiss();
     }).catch((error)=>{
       this.loadingController.dismiss();
-      console.log(error);
+      this.toastService.presentErrorToast('top','Ha ocurrido un error');
     });
   }
 
@@ -200,7 +201,7 @@ export class TasksMainPage implements OnInit {
       this.taskLists = response.filter((list) => list.nombre != 'Bandeja de entrada');
       this.taskListsResult = [...this.taskLists];
     }).catch((error)=>{
-      console.log(error);
+      this.toastService.presentErrorToast('top','Ha ocurrido un error');
     });
   }
 

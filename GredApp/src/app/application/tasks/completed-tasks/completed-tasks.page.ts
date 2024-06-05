@@ -2,12 +2,12 @@ import { Task } from './../../../core/models/task';
 import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonBackButton, IonIcon, IonButton, IonLabel, IonList, IonItemSliding, IonItem, IonCheckbox, IonItemOption, IonItemOptions } from '@ionic/angular/standalone';
+import { LoadingController, IonContent, IonHeader, IonTitle, IonToolbar, IonBackButton, IonIcon, IonButton, IonLabel, IonList, IonItemSliding, IonItem, IonCheckbox, IonItemOption, IonItemOptions } from '@ionic/angular/standalone';
 import { TaskList } from 'src/app/core/models/task-list';
 import { TaskListComponent } from 'src/app/shared/components/task-list/task-list.component';
 import { TasksListsService } from 'src/app/core/services/tasksLists.service';
-import { LoadingController } from '@ionic/angular';
 import { Router } from '@angular/router';
+import { ToastServiceService } from 'src/app/core/services/toast-service.service';
 
 @Component({
   selector: 'app-completed-tasks',
@@ -20,6 +20,7 @@ export class CompletedTasksPage implements OnInit {
 
   private tasksListService = inject(TasksListsService);
   private router = inject(Router);
+  private toastService = inject(ToastServiceService);
 
   taskLists:TaskList[];
   tasks:Task[];
@@ -44,7 +45,8 @@ export class CompletedTasksPage implements OnInit {
       })
       this.loadingController.dismiss();
     }).catch((error)=>{
-      console.log(error);
+      this.loadingController.dismiss();
+      this.toastService.presentErrorToast('top','Ha ocurrido un error');
     });
   }
 
@@ -53,7 +55,7 @@ export class CompletedTasksPage implements OnInit {
       this.tasks = response;
       this.checkEmptyListTask();
     }).catch((error) => {
-      console.log(error);
+      this.toastService.presentErrorToast('top','Ha ocurrido un error');
     })
   }
 
@@ -66,26 +68,24 @@ export class CompletedTasksPage implements OnInit {
   }
 
   onClick(task:Task, event:any){
-    console.log(event.detail.checked)
     let update = {
       completed: event.detail.checked,
     }
     let taskListID = this.findTaskListIdFromTask(this.taskLists, task);
     this.tasksListService.updateTask(taskListID, task._id!.$oid, update).then((response) => {
-      //Hacer servicio de mensaje toast
       this.tasksListService.emitDataUpdateCheckedTask();
     }).catch((error) => {
-      console.log(error);
+      this.toastService.presentErrorToast('top','Ha ocurrido un error');
     });
   }
 
   onDelete(task:Task){
     let taskListID = this.findTaskListIdFromTask(this.taskLists, task);
     this.tasksListService.deleteTask(taskListID, task._id!.$oid).then((response) => {
-      //Hacer servicio de mensajes toast
+      this.toastService.presentSuccessToast('top', 'Tarea eliminada');
       this.tasksListService.emitDataUpdateDeleteTask();
     }).catch((error) => {
-      console.log(error);
+      this.toastService.presentErrorToast('top','Ha ocurrido un error');
     });
   }
 

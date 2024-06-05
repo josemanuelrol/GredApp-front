@@ -1,13 +1,13 @@
+import { ToastServiceService } from 'src/app/core/services/toast-service.service';
 import { ID } from './../../../core/models/id';
 import { Event } from './../../../core/models/event';
 import { AfterViewInit, Component, ElementRef, OnInit, QueryList, ViewChild, ViewChildren, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonSearchbar, IonCard, IonCardHeader, IonCardContent, IonCardTitle, IonIcon, IonFab, IonFabButton, IonRefresher, IonRefresherContent } from '@ionic/angular/standalone';
+import { LoadingController, IonContent, IonHeader, IonTitle, IonToolbar, IonSearchbar, IonCard, IonCardHeader, IonCardContent, IonCardTitle, IonIcon, IonFab, IonFabButton, IonRefresher, IonRefresherContent } from '@ionic/angular/standalone';
 import { Note } from 'src/app/core/models/note';
 import { NotesService } from 'src/app/core/services/notes.service';
 import { Router } from '@angular/router';
-import { LoadingController } from '@ionic/angular'
 
 @Component({
   selector: 'app-notes-main',
@@ -18,8 +18,9 @@ import { LoadingController } from '@ionic/angular'
 })
 export class NotesMainPage implements OnInit {
 
-  notesService = inject(NotesService);
+  private notesService = inject(NotesService);
   private router = inject(Router);
+  private toastService = inject(ToastServiceService);
 
   notesList: Note[];
   notesListResult: Note[];
@@ -34,7 +35,6 @@ export class NotesMainPage implements OnInit {
   }
 
   ngOnInit() {
-    console.log("Notas");
     this.loadNotes();
   }
 
@@ -46,7 +46,8 @@ export class NotesMainPage implements OnInit {
       this.emptyMessage = 'No tienes notas todavía'
       this.loadingController.dismiss()
     }).catch((error)=>{
-        alert(error.error.error);
+      this.loadingController.dismiss();
+      this.toastService.presentErrorToast('top','Ha ocurrido un error');
       });
   }
 
@@ -56,7 +57,7 @@ export class NotesMainPage implements OnInit {
       this.notesListResult = [...this.notesList]
       event.target.complete()
     }).catch((error)=>{
-        alert(error.error.error);
+      this.toastService.presentErrorToast('top','Ha ocurrido un error');
     });
   }
 

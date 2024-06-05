@@ -1,15 +1,15 @@
 <ion-header collapse="condense" class="ion-no-border">
-  <ion-toolbar>
+  <ion-toolbar color="light">
     <ion-back-button [disabled]="this.nombreControl.invalid" slot="start" color="dark" (click)="onBack()"></ion-back-button>
-    <ion-button slot="end" fill="clear" color="dark" (click)="onDelete()">
+    <ion-button slot="end" fill="clear" color="danger" (click)="onDelete()">
       <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
     </ion-button>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content color="light">
   <ion-fab slot="fixed" vertical="bottom" horizontal="end">
-    <ion-fab-button size="small" color="dark" (click)="createTask()">
+    <ion-fab-button size="small" color="danger" (click)="createTask()">
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>

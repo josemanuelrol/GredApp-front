@@ -2,10 +2,10 @@ import { Router } from '@angular/router';
 import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormControl, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonSearchbar, IonTextarea, IonButton, IonIcon, IonBackButton } from '@ionic/angular/standalone';
+import { AlertController, IonContent, IonHeader, IonTitle, IonToolbar, IonSearchbar, IonTextarea, IonButton, IonIcon, IonBackButton } from '@ionic/angular/standalone';
 import { Note } from 'src/app/core/models/note';
 import { NotesService } from 'src/app/core/services/notes.service';
-import { AlertController } from '@ionic/angular';
+import { ToastServiceService } from 'src/app/core/services/toast-service.service';
 
 @Component({
   selector: 'app-note-detail',
@@ -18,6 +18,7 @@ export class NoteDetailPage implements OnInit {
 
   private router = inject(Router);
   private notesService = inject(NotesService);
+  private toastService = inject(ToastServiceService);
 
   note: Note = { titulo: '', contenido: '' };
 
@@ -42,7 +43,7 @@ export class NoteDetailPage implements OnInit {
             this.notesService.emitDataUpdated();
             this.router.navigate(['app/notes']);
           }).catch((error)=>{
-            console.log(error)
+            this.toastService.presentErrorToast('top','Ha ocurrido un error');
           })
         },
       }
@@ -50,7 +51,6 @@ export class NoteDetailPage implements OnInit {
   }
 
   ngOnInit() {
-    console.log("NoteDetail")
     const params = this.router.getCurrentNavigation()!.extras.state;
     this.note = params!['data'];
     this.tituloControl.setValue(this.note.titulo);
@@ -68,7 +68,7 @@ export class NoteDetailPage implements OnInit {
         this.notesService.createNote(note).then((response)=>{
           this.notesService.emitDataUpdated();
         }).catch((error)=>{
-          console.log(error);
+          this.toastService.presentErrorToast('top','Ha ocurrido un error');
         })
       }
     }else if (this.note.titulo != ''){
@@ -76,7 +76,7 @@ export class NoteDetailPage implements OnInit {
       this.notesService.updateNote(this.note._id!.$oid, note).then((response)=>{
         this.notesService.emitDataUpdated();
       }).catch((error)=>{
-        console.log(error);
+        this.toastService.presentErrorToast('top','Ha ocurrido un error');
       })
     }
   }

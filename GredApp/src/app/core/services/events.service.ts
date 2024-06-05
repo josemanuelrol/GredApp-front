@@ -1,14 +1,15 @@
-import { Calendar } from './../models/calendar';
-import { Event } from './../models/event';
+import { Event } from '../models/event';
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-import { firstValueFrom } from 'rxjs';
+import { Observable, Subject, firstValueFrom } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
-export class CalendarService {
+export class EventsService {
+
+  private dataUpdated = new Subject<void>();
 
   private readonly baseUrlApi: string = environment.baseUrlApi;
 
@@ -26,6 +27,10 @@ export class CalendarService {
     return firstValueFrom(this.http.get<Event[]>(`${this.baseUrlApi}/eventos`));
   }
 
+  getUserEvents(user_id:string):Promise<Event[]>{
+    return firstValueFrom(this.http.get<Event[]>(`${this.baseUrlApi}/user/${user_id}/eventos`));
+  }
+
   getEventById(id:string):Promise<Event>{
     return firstValueFrom(this.http.get<Event>(`${this.baseUrlApi}/evento/${id}`));
   }
@@ -38,25 +43,12 @@ export class CalendarService {
     return firstValueFrom(this.http.delete<any>(`${this.baseUrlApi}/evento/${id}`));
   }
 
-  // CALENDARS
-
-  createCalendar(calendar:Calendar):Promise<any>{
-    return firstValueFrom(this.http.post<any>(`${this.baseUrlApi}/calendario`,calendar));
+  emitDataUpdated(){
+    this.dataUpdated.next();
   }
 
-  getCalendars():Promise<Calendar[]>{
-    return firstValueFrom(this.http.get<Calendar[]>(`${this.baseUrlApi}/calendarios`));
+  onDataUpdate():Observable<any>{
+    return this.dataUpdated.asObservable();
   }
 
-  getCalendarById(id:string):Promise<Calendar>{
-    return firstValueFrom(this.http.get<Calendar>(`${this.baseUrlApi}/calendario/${id}`));
-  }
-
-  updateCalendar(id:string, calendar:Calendar):Promise<any>{
-    return firstValueFrom(this.http.put<any>(`${this.baseUrlApi}/calendario/${id}`, calendar));
-  }
-
-  deleteCalendar(id:string):Promise<any>{
-    return firstValueFrom(this.http.delete<any>(`${this.baseUrlApi}/calendario/${id}`));
-  }
 }

@@ -2,12 +2,11 @@ import { TaskListComponent } from '../../../shared/components/task-list/task-lis
 import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormControl, FormsModule, Validators, ReactiveFormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonBackButton, IonButton, IonIcon, IonList, IonListHeader, IonLabel, IonItem, IonItemSliding, IonCheckbox, IonItemOptions, IonItemOption, IonTextarea, IonInput, IonFab, IonFabButton } from '@ionic/angular/standalone';
+import { AlertController, LoadingController,  IonContent, IonHeader, IonTitle, IonToolbar, IonBackButton, IonButton, IonIcon, IonList, IonListHeader, IonLabel, IonItem, IonItemSliding, IonCheckbox, IonItemOptions, IonItemOption, IonTextarea, IonInput, IonFab, IonFabButton } from '@ionic/angular/standalone';
 import { TasksListsService } from 'src/app/core/services/tasksLists.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TaskList } from 'src/app/core/models/task-list';
-import { LoadingController } from '@ionic/angular';
-import { AlertController } from '@ionic/angular';
+import { ToastServiceService } from 'src/app/core/services/toast-service.service';
 
 @Component({
   selector: 'app-task-list-detail',
@@ -20,6 +19,7 @@ export class TaskListDetailPage implements OnInit {
 
   private taskListService = inject(TasksListsService);
   private router = inject(Router);
+  private toastService = inject(ToastServiceService);
 
   taskList:TaskList;
   taskListID:string;
@@ -33,10 +33,11 @@ export class TaskListDetailPage implements OnInit {
       role: 'delete',
       handler: () => {
         this.taskListService.deleteTaskList(this.taskList._id!.$oid).then((response)=>{
+          this.toastService.presentSuccessToast('top','Lista de tareas eliminada');
           this.taskListService.emitDataUpdatedList();
           this.router.navigate(['app/tasks']);
         }).catch((error)=>{
-          console.log(error);
+          this.toastService.presentErrorToast('top','Ha ocurrido un error');
         })
       },
     }
@@ -58,7 +59,7 @@ export class TaskListDetailPage implements OnInit {
           this.taskListService.addTask(this.taskList._id!.$oid, newTask).then((response)=>{
             this.taskListService.emitDataUpdateNewTask();
           }).catch((error)=>{
-            console.log(error);
+            this.toastService.presentErrorToast('top','Ha ocurrido un error');
           })
         }
       }
@@ -99,7 +100,7 @@ export class TaskListDetailPage implements OnInit {
       this.loadingController.dismiss();
     }).catch((error)=>{
       this.loadingController.dismiss();
-      console.log(error);
+      this.toastService.presentErrorToast('top','Ha ocurrido un error');
     })
   }
 
@@ -108,7 +109,7 @@ export class TaskListDetailPage implements OnInit {
       this.taskList = list;
       this.taskList.tareas = this.taskList.tareas!.filter(task => !task.completed)
     }).catch((error)=>{
-      console.log(error);
+      this.toastService.presentErrorToast('top','Ha ocurrido un error');
     })
   }
 
@@ -148,7 +149,7 @@ export class TaskListDetailPage implements OnInit {
       this.taskListService.updateTaskList(this.taskList._id!.$oid, list).then((response)=>{
         this.taskListService.emitDataUpdatedList();
       }).catch((error)=>{
-        console.log(error);
+        this.toastService.presentErrorToast('top','Ha ocurrido un error');
       })
     }
   }

@@ -15,7 +15,7 @@ export class MainPage implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    console.log("Main")
+    console.log()
   }
 
 }

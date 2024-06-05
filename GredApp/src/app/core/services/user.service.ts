@@ -24,7 +24,11 @@ export class UserService {
   }
 
   deleteUser(id:string):Promise<any>{
-    return firstValueFrom(this.http.delete<any>(`${this.baseUrlApi}/${id}`));
+    return firstValueFrom(this.http.delete<any>(`${this.baseUrlApi}/user/${id}`));
+  }
+
+  cambiarContraseña(user_id:string, body:any):Promise<any>{
+    return firstValueFrom(this.http.put<any>(`${this.baseUrlApi}/user/${user_id}/changePassword`,body))
   }
 
 }

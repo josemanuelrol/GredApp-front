@@ -1,5 +1,5 @@
-<div class="mainTaskList ion-padding-end">
-  <ion-list>
+<div class="mainTaskList">
+  <ion-list inset="true">
     @for (task of this.mainTaskList()!.tareas; track task._id) {
     <ion-item-sliding>
       <ion-item lines="none">
@@ -22,5 +22,7 @@
     </ion-item-sliding>
     }
   </ion-list>
-  <ion-label>{{this.emptyMessage}}</ion-label>
+  @if(!this.mainTaskList().tareas?.length){
+    <ion-label>No tienes tareas pendientes</ion-label>
+  }
 </div>

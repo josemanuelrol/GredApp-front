@@ -1,11 +1,11 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { IonThumbnail, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent, IonRow, IonCol, IonGrid, IonInput, IonButton, IonIcon, IonToast, ToastController, IonLabel } from '@ionic/angular/standalone';
+import { LoadingController, IonThumbnail, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent, IonRow, IonCol, IonGrid, IonInput, IonButton, IonIcon, IonToast, ToastController, IonLabel } from '@ionic/angular/standalone';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { Router } from '@angular/router';
-import { LoadingController } from '@ionic/angular'
 import { UserService } from 'src/app/core/services/user.service';
+import { ToastServiceService } from 'src/app/core/services/toast-service.service';
 
 @Component({
   selector: 'app-login',
@@ -19,6 +19,7 @@ export class LoginPage implements OnInit {
   authService = inject(AuthService);
   userService = inject(UserService);
   router = inject(Router)
+  toastService = inject(ToastServiceService);
 
   loginForm:FormGroup;
 
@@ -33,13 +34,12 @@ export class LoginPage implements OnInit {
   }
 
   ngOnInit() {
-    console.log("Login")
+    console.log("")
   }
 
   async login(){
     this.showLoading();
     await this.authService.login(this.loginForm.value).then((result) => {
-      console.log(result)
         if (result.login){
           localStorage.setItem('userID',result.user_id)
           localStorage.setItem('token', result.token)
@@ -48,19 +48,9 @@ export class LoginPage implements OnInit {
         }
     }).catch(async(error)=>{
       localStorage.clear()
-      this.loadingController.dismiss()
-        const toast = await this.toastController.create({
-          message: error.error.error,
-          duration: 2000,
-          position: "top",
-          icon: 'alert-outline'
-        });
-        await toast.present();
+      this.loadingController.dismiss();
+      this.toastService.presentErrorToast('top',error.error.error);
     });
-  }
-
-  async onClick(){
-    console.log(localStorage.getItem('token'))
   }
 
   async showLoading() {

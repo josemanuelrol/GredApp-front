@@ -1,17 +1,17 @@
 <ion-header class="ion-no-border" collapse="condense">
-  <ion-toolbar class="ion-padding-top">
+  <ion-toolbar color="light" class="ion-padding-top">
     <ion-title size="large"> Notas </ion-title>
   </ion-toolbar>
-  <ion-toolbar>
-    <ion-searchbar (ionInput)="handleInput($event)" placeholder="Buscar" animated="true" inputmode="search" color="light"></ion-searchbar>
+  <ion-toolbar color="light">
+    <ion-searchbar (ionInput)="handleInput($event)" placeholder="Buscar" animated="true" inputmode="search"></ion-searchbar>
   </ion-toolbar>
 </ion-header>
-<ion-content>
+<ion-content color="light">
   <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
   <ion-fab slot="fixed" vertical="bottom" horizontal="end">
-    <ion-fab-button size="small" color="dark" (click)="createNote()">
+    <ion-fab-button size="small" color="danger" (click)="createNote()">
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>

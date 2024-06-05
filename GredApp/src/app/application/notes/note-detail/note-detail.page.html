@@ -1,14 +1,14 @@
 <ion-header collapse="condense" class="ion-no-border">
-  <ion-toolbar>
+  <ion-toolbar color="light">
     <ion-back-button slot="start" color="dark" (click)="onBack()"></ion-back-button>
     @if (this.note.titulo !== ''){
-      <ion-button slot="end" fill="clear" color="dark" (click)="onDelete()">
+      <ion-button slot="end" fill="clear" color="danger" (click)="onDelete()">
         <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
       </ion-button>
     }
   </ion-toolbar>
 </ion-header>
-<ion-content>
+<ion-content color="light">
   <div class="container ion-padding">
     <div class="titleNote">
       <ion-textarea [formControl]="this.tituloControl" [autoGrow]="true" placeholder="Titulo de la nota..."></ion-textarea>

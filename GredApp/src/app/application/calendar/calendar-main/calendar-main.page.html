@@ -1,26 +1,56 @@
 <ion-header collapse="condense" class="ion-no-border">
-  <ion-toolbar class="ion-padding-top">
+  <ion-toolbar color="light" class="ion-padding-top">
     <ion-title size="large"> Calendario </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content color="light">
   <ion-fab slot="fixed" vertical="bottom" horizontal="end">
-    <ion-fab-button size="small" color="dark" >
+    <ion-fab-button size="small" color="danger" (click)="createEvent()">
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>
   <ion-grid>
-    <ion-row>
-      <ion-col>
-        <ion-datetime color="danger" presentation="date">
+    <ion-row class="ion-justify-content-center">
+      <ion-col size="12" sizeSm="6" sizeMd="5" sizeLg="4" sizeXl="3">
+        <ion-datetime [value]="this.actualISODate" (ionChange)="handleDate($event)" color="danger" presentation="date" locale="es-ES">
         </ion-datetime>
+        <ion-searchbar (ionInput)="handleInput($event)" placeholder="Buscar" animated="true" inputmode="search"></ion-searchbar>
       </ion-col>
     </ion-row>
     <ion-row>
       <ion-col>
-        <ion-title size="large">Hoy:</ion-title>
+        @if (this.checkSameDate()){
+          <ion-title size="large">Hoy:</ion-title>
+        }@else{
+          <ion-title size="large">{{this.date | date:'longDate':' ':'es'}}</ion-title>
+        }
       </ion-col>
+    </ion-row>
+    <ion-row class="ion-justify-start ion-margin-bottom">
+      @if(eventsResult.length){
+        <ion-col size="12" sizeMd="6" sizeLg="4" *ngFor="let event of eventsResult; trackBy:trackItems">
+          <app-event-card [event]="event" style="width: 97%;"></app-event-card>
+        </ion-col>
+      }@else {
+        <ion-col class="messageCol">
+          <ion-label class="messageEmpty">No tienes eventos en esta fecha</ion-label>
+        </ion-col>
+      }
+    </ion-row>
+    <ion-row>
+      <ion-title size="large">Próximos eventos:</ion-title>
+    </ion-row>
+    <ion-row class="ion-justify-start">
+      @if(nextEvents.length){
+        <ion-col size="12" sizeMd="6" sizeLg="4" *ngFor="let event of nextEvents; trackBy:trackItems">
+          <app-event-card [event]="event" style="width: 97%;"></app-event-card>
+        </ion-col>
+      }@else {
+        <ion-col class="messageCol">
+          <ion-label class="messageEmpty">No tienes próximos eventos</ion-label>
+        </ion-col>
+      }
     </ion-row>
   </ion-grid>
 

@@ -1,10 +1,10 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonCardTitle, ToastController, IonRow, IonCol, IonGrid, IonCardContent, IonCardHeader, IonCard, IonButton, IonInput, IonIcon, IonCardSubtitle, IonLabel } from '@ionic/angular/standalone';
+import { LoadingController, IonContent, IonHeader, IonTitle, IonToolbar, IonCardTitle, ToastController, IonRow, IonCol, IonGrid, IonCardContent, IonCardHeader, IonCard, IonButton, IonInput, IonIcon, IonCardSubtitle, IonLabel } from '@ionic/angular/standalone';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { Router } from '@angular/router';
-import { LoadingController } from '@ionic/angular'
+import { ToastServiceService } from 'src/app/core/services/toast-service.service';
 
 @Component({
   selector: 'app-register',
@@ -17,6 +17,7 @@ export class RegisterPage implements OnInit {
 
   authService = inject(AuthService);
   router = inject(Router)
+  toastService = inject(ToastServiceService);
 
   registerForm:FormGroup;
 
@@ -33,34 +34,21 @@ export class RegisterPage implements OnInit {
   }
 
   ngOnInit() {
-    console.log("Register")
+    console.log("")
   }
 
   register(){
     this.showLoading()
     this.authService.register(this.registerForm.value).then(async (result)=>{
-      console.log(result)
         if (result.mensaje){
-          const toast = await this.toastController.create({
-            message: result.mensaje,
-            duration: 2000,
-            position: "top",
-            icon: 'globe'
-          });
-          await toast.present();
+          this.toastService.presentSuccessToast('top',result.mensaje);
           this.router.navigate(['/auth/login'])
           this.loadingController.dismiss()
         }
     }).catch(async (error)=>{
       localStorage.clear();
       this.loadingController.dismiss();
-        const toast = await this.toastController.create({
-          message: error.error.error,
-          duration: 2000,
-          position: "top",
-          icon: 'alert-outline'
-        });
-        await toast.present();
+      this.toastService.presentErrorToast('top',error.error.error);
     });
   }
 

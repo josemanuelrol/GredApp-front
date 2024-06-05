@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
-import { IonApp, IonRouterOutlet, IonContent, IonTabButton, IonIcon, IonTabBar, IonTabs } from '@ionic/angular/standalone';
+import { Component, inject } from '@angular/core';
+import { ScreenOrientationPlugin } from '@capacitor/screen-orientation';
+import { IonApp, IonRouterOutlet } from '@ionic/angular/standalone';
 
 @Component({
   selector: 'app-root',
@@ -8,5 +9,6 @@ import { IonApp, IonRouterOutlet, IonContent, IonTabButton, IonIcon, IonTabBar, 
   imports: [IonApp, IonRouterOutlet],
 })
 export class AppComponent {
-  constructor() {}
+  constructor() {
+  }
 }

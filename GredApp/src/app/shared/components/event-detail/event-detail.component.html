@@ -1,0 +1,61 @@
+<ion-header class="ion-no-border" collapse="condense">
+  <ion-toolbar color="light">
+    <ion-buttons slot="start">
+      <ion-button strong="true" color="dark" (click)="cancel()">Volver</ion-button>
+    </ion-buttons>
+    <ion-title>Evento</ion-title>
+    @if(!this.data['titulo']){
+      <ion-buttons slot="end">
+        <ion-button color="primary" [disabled]="this.tituloControl.invalid" (click)="confirm()" [strong]="true">Crear</ion-button>
+      </ion-buttons>
+    }@else{
+      <ion-buttons slot="end">
+        <ion-button color="primary" [disabled]="this.tituloControl.invalid" (click)="confirm()" [strong]="true">Guardar</ion-button>
+      </ion-buttons>
+    }
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding" color="light">
+  <ion-grid fixed="true">
+    <ion-row>
+      <ion-col>
+        @if(this.tituloControl.invalid && this.tituloControl.dirty){
+        <ion-note color="danger" class="ion-margin-horizontal">
+          El titulo del evento es requerido
+        </ion-note>
+        }
+        <ion-list inset="true">
+          <ion-item>
+            <ion-input placeholder="Titulo del evento" [formControl]="this.tituloControl"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-toggle #toggle [checked]="this.allDay" (ionChange)="handleToggle($event)">Todo el día</ion-toggle>
+          </ion-item>
+          @if(allDay){
+          <ion-item>
+            <ion-label>Fecha</ion-label>
+            <ion-datetime-button datetime="date"></ion-datetime-button>
+            <ion-modal [keepContentsMounted]="true">
+              <ng-template>
+                <ion-datetime #date id="date" [value]="this.actualISODate" presentation="date" (ionChange)="handleDate($event)">
+                </ion-datetime>
+              </ng-template>
+            </ion-modal>
+          </ion-item>
+        }@else {
+          <ion-item>
+            <ion-label>Fecha</ion-label>
+            <ion-datetime-button datetime="datetime"></ion-datetime-button>
+            <ion-modal [keepContentsMounted]="true">
+              <ng-template>
+                <ion-datetime #datetime id="datetime" [value]="this.actualISODate" presentation="date-time" (ionChange)="handleDateTime($event)">
+                </ion-datetime>
+              </ng-template>
+            </ion-modal>
+          </ion-item>
+        }
+      </ion-list>
+    </ion-col>
+  </ion-row>
+</ion-grid>
+</ion-content>

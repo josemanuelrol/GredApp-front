@@ -1,9 +1,10 @@
 import { Task } from './../../../core/models/task';
-import { Component, OnInit, inject, input } from '@angular/core';
+import { AfterViewInit, Component, OnInit, inject, input } from '@angular/core';
 import { ModalController, IonList, IonListHeader, IonLabel, IonItemSliding, IonItem, IonCheckbox, IonItemOptions, IonItemOption, IonFab, IonFabButton, IonIcon, IonContent, IonModal, IonHeader, IonToolbar, IonButtons, IonButton, IonTitle, IonInput, IonAlert } from "@ionic/angular/standalone";
 import { TaskList } from 'src/app/core/models/task-list';
 import { TasksListsService } from 'src/app/core/services/tasksLists.service';
 import { TaskDetailComponent } from '../task-detail/task-detail.component';
+import { ToastServiceService } from 'src/app/core/services/toast-service.service';
 
 @Component({
   selector: 'app-task-list',
@@ -15,6 +16,7 @@ import { TaskDetailComponent } from '../task-detail/task-detail.component';
 export class TaskListComponent implements OnInit {
 
   private taskListService = inject(TasksListsService);
+  private toastService = inject(ToastServiceService);
 
   mainTaskList = input.required<TaskList>();
 
@@ -28,15 +30,14 @@ export class TaskListComponent implements OnInit {
 
   onDelete(task: Task) {
     this.taskListService.deleteTask(this.mainTaskList()._id!.$oid, task._id!.$oid).then((response) => {
-      //Hacer servicio de mensajes toast
+      this.toastService.presentSuccessToast('top', 'Tarea eliminada');
       this.taskListService.emitDataUpdateDeleteTask();
     }).catch((error) => {
-      console.log(error);
+      this.toastService.presentErrorToast('top','Ha ocurrido un error');
     });
   }
 
   async onClick(task: Task, event: any) {
-    console.log(event.detail.checked)
     let update = {
       completed: event.detail.checked,
     }
@@ -44,14 +45,8 @@ export class TaskListComponent implements OnInit {
       //Hacer servicio de mensaje toast
       this.taskListService.emitDataUpdateCheckedTask();
     }).catch((error) => {
-      console.log(error);
+      this.toastService.presentErrorToast('top','Ha ocurrido un error');
     });
-  }
-
-  checkEmptyListTask(){
-    if (this.mainTaskList()!.tareas!.length == 0){
-      this.emptyMessage = "No tienes tareas pendientes"
-    }
   }
 
   async openModal(task:Task) {
@@ -59,7 +54,7 @@ export class TaskListComponent implements OnInit {
       component: TaskDetailComponent,
       componentProps: {
         data: task
-      },
+      }
     });
     modal.present();
 
@@ -69,7 +64,7 @@ export class TaskListComponent implements OnInit {
       this.taskListService.updateTask(this.mainTaskList()._id!.$oid, task._id!.$oid, data).then((response)=>{
         this.taskListService.emitDataUpdateNewTask();
       }).catch((error)=>{
-        console.log(error);
+        this.toastService.presentErrorToast('top','Ha ocurrido un error');
       });
     }
   }
