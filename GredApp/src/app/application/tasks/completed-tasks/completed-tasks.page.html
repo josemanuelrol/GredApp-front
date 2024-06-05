@@ -8,12 +8,12 @@
   <ion-header>
     <ion-title size="large">Tareas completadas</ion-title>
   </ion-header>
-  <div class="mainTaskList ion-padding-end">
+  <div class="mainTaskList ion-padding">
     <ion-list>
       @for (task of this.tasks; track task._id) {
         <ion-item-sliding>
           <ion-item lines="none">
-            <ion-checkbox (ionChange)="onClick(task, $event)" [checked]="task.completed" labelPlacement="end"
+            <ion-checkbox color="danger" (ionChange)="onClick(task, $event)" [checked]="task.completed" labelPlacement="end"
             justify="start">
             <ion-label>
               {{task.titulo}}

@@ -29,7 +29,7 @@
             <ion-input placeholder="Titulo del evento" [formControl]="this.tituloControl"></ion-input>
           </ion-item>
           <ion-item>
-            <ion-toggle #toggle [checked]="this.allDay" (ionChange)="handleToggle($event)">Todo el día</ion-toggle>
+            <ion-toggle color="danger" #toggle [checked]="this.allDay" (ionChange)="handleToggle($event)">Todo el día</ion-toggle>
           </ion-item>
           @if(allDay){
           <ion-item>

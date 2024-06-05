@@ -21,7 +21,7 @@
                       helperText="Introduce tu contraseña" errorText="Contraseña requerida" [formControl]="passwordControl"
                       required="true"></ion-input>
                     <div class="ion-text-center">
-                      <ion-button [disabled]="loginForm.invalid" class="ion-margin-top ion-padding-top"
+                      <ion-button color="danger" [disabled]="loginForm.invalid" class="ion-margin-top ion-padding-top"
                         type="submit">Entrar</ion-button>
                     </div>
                   </form>
@@ -30,7 +30,7 @@
             </ion-row>
           </ion-grid>
         </ion-card>
-        <ion-label class="ion-margin-top">¿No tienes cuenta? <a href="auth/register">Registrate</a></ion-label>
+        <ion-label class="ion-margin-top">¿No tienes cuenta? <a href="auth/register" style="color: brown;">Registrate</a></ion-label>
       </ion-col>
     </ion-row>
   </ion-grid>
