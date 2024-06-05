@@ -21,6 +21,7 @@
                       <ion-input type="password" fill="solid" label="Contraseña" labelPlacement="floating"
                         helperText="Introduce tu contraseña" errorText="Contraseña requerida" [formControl]="passwordControl"
                         required="true">
+                        <ion-input-password-toggle color="dark" slot="end"></ion-input-password-toggle>
                       </ion-input>
                       <div class="ion-text-center">
                         <ion-button color="danger" [disabled]="registerForm.invalid" class="ion-margin-top ion-padding-top"

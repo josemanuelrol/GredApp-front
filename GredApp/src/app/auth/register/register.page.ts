@@ -1,7 +1,7 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { LoadingController, IonContent, IonHeader, IonTitle, IonToolbar, IonCardTitle, ToastController, IonRow, IonCol, IonGrid, IonCardContent, IonCardHeader, IonCard, IonButton, IonInput, IonIcon, IonCardSubtitle, IonLabel } from '@ionic/angular/standalone';
+import { IonInputPasswordToggle, LoadingController, IonContent, IonHeader, IonTitle, IonToolbar, IonCardTitle, ToastController, IonRow, IonCol, IonGrid, IonCardContent, IonCardHeader, IonCard, IonButton, IonInput, IonIcon, IonCardSubtitle, IonLabel } from '@ionic/angular/standalone';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { Router } from '@angular/router';
 import { ToastServiceService } from 'src/app/core/services/toast-service.service';
@@ -11,7 +11,7 @@ import { ToastServiceService } from 'src/app/core/services/toast-service.service
   templateUrl: './register.page.html',
   styleUrls: ['./register.page.scss'],
   standalone: true,
-  imports: [IonLabel, IonCardSubtitle, IonIcon, IonButton, IonCard, IonCardHeader, IonCardContent, IonGrid, IonCol, IonRow, IonCardTitle, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, ReactiveFormsModule, IonInput]
+  imports: [IonInputPasswordToggle, IonLabel, IonCardSubtitle, IonIcon, IonButton, IonCard, IonCardHeader, IonCardContent, IonGrid, IonCol, IonRow, IonCardTitle, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, ReactiveFormsModule, IonInput]
 })
 export class RegisterPage implements OnInit {
 
