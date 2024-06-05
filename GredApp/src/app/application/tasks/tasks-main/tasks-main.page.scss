@@ -5,6 +5,9 @@ $card-content-padding: 12px;
   gap: 16px;
   padding: 16px;
   grid-template-columns: repeat(auto-fit, minmax(225px,1fr));
+  ion-label{
+    font-size: 18px;
+  }
 }
 
 .mainTaskList{

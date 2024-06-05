@@ -23,6 +23,7 @@ export class TasksMainPage implements OnInit {
   private toastService = inject(ToastServiceService);
 
   userID:string;
+  emtpyTasksLists:string;
   taskLists:TaskList[];
   taskListsResult:TaskList[];
   mainTaskList:TaskList;
@@ -118,6 +119,7 @@ export class TasksMainPage implements OnInit {
 
   constructor(private loadingController:LoadingController, private alertController:AlertController) {
     this.userID = localStorage.getItem('userID')!;
+    this.emtpyTasksLists = "";
     this.taskLists = [];
     this.taskListsResult = [...this.taskLists];
     this.mainTaskList = {};
@@ -139,6 +141,9 @@ export class TasksMainPage implements OnInit {
       this.mainTaskList = response[0];
       this.taskLists = response.filter((list) => list.nombre != 'Bandeja de entrada');
       this.taskListsResult = [...this.taskLists];
+      if (this.taskListsResult.length == 0){
+        this.emtpyTasksLists = 'No tienes listas de tareas';
+      };
       event.target.complete();
     }).catch((error)=>{
       event.target.complete();
@@ -185,6 +190,9 @@ export class TasksMainPage implements OnInit {
       this.mainTaskList = response[0];
       this.taskLists = response.filter((list) => list.nombre != 'Bandeja de entrada');
       this.taskListsResult = [...this.taskLists];
+      if (this.taskListsResult.length == 0){
+        this.emtpyTasksLists = 'No tienes listas de tareas';
+      };
       this.loadingController.dismiss();
     }).catch((error)=>{
       this.loadingController.dismiss();
@@ -200,6 +208,9 @@ export class TasksMainPage implements OnInit {
       this.mainTaskList = response[0];
       this.taskLists = response.filter((list) => list.nombre != 'Bandeja de entrada');
       this.taskListsResult = [...this.taskLists];
+      if (this.taskListsResult.length == 0){
+        this.emtpyTasksLists = 'No tienes listas de tareas';
+      };
     }).catch((error)=>{
       this.toastService.presentErrorToast('top','Ha ocurrido un error');
     });

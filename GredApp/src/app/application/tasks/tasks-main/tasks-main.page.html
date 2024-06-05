@@ -31,6 +31,9 @@
         </ion-card-title>
       </ion-card-header>
     </ion-card>
+    @if(this.taskListsResult.length === 0){
+      <ion-label>{{this.emtpyTasksLists}}</ion-label>
+    }
   </div>
   <div class="mainTaskList">
     <ion-label>{{this.mainTaskList.nombre}}</ion-label>
