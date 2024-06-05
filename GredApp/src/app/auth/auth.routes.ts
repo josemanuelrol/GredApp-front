@@ -8,5 +8,10 @@ export const routes: Routes = [
   {
     path: 'register',
     loadComponent: () => import('./register/register.page').then((m) => m.RegisterPage),
+  },
+  {
+    path: '',
+    redirectTo: 'login',
+    pathMatch: 'full',
   }
 ]

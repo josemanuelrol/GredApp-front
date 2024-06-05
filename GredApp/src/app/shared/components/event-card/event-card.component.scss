@@ -1,0 +1,31 @@
+ion-card{
+  margin: 8px;
+  width: 95%;
+  position: relative;
+}
+
+ion-card-content{
+  padding: 0px;
+}
+ion-card-header{
+  padding: 14px;
+  padding-bottom: 0px;
+  width: 82%;
+}
+
+ion-card-title{
+  font-size: 24px;
+}
+
+.trashIcon{
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 9.5px;
+}
+.editIcon{
+  position: absolute;
+  top: 0;
+  right: 28px;
+  margin: 9.5px;
+}

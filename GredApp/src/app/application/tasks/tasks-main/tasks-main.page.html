@@ -1,0 +1,41 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar color="light" class="ion-padding-top">
+    <ion-title size="large">Mis listas</ion-title>
+    <ion-buttons slot="end">
+      <ion-button shape="round" color="dark" (click)="setOpenActionSheet(true)">
+        <ion-icon slot="icon-only" name="ellipsis-horizontal"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+  <ion-toolbar color="light">
+    <ion-searchbar (ionInput)="handleInput($event)" placeholder="Buscar" animated="true" inputmode="search"
+     class="custom"></ion-searchbar>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content color="light">
+  <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+    <ion-fab-button size="small" color="danger" (click)="createTask()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+  <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <div class="task-container">
+    <ion-card button (click)="onClick(list)" *ngFor="let list of this.taskListsResult; trackBy:trackItems">
+      <ion-card-header>
+        <ion-card-title>
+          <ion-icon name="list"></ion-icon>
+          {{list.nombre}}
+        </ion-card-title>
+      </ion-card-header>
+    </ion-card>
+  </div>
+  <div class="mainTaskList">
+    <ion-label>{{this.mainTaskList.nombre}}</ion-label>
+    <app-task-list [mainTaskList]="this.mainTaskList"></app-task-list>
+  </div>
+  <ion-action-sheet [isOpen]="isActionSheetOpen" header="Más opciones" [buttons]="actionSheetButtons"
+    (didDismiss)="handleResult($event, false)"></ion-action-sheet>
+</ion-content>

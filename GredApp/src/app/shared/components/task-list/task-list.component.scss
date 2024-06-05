@@ -1,0 +1,29 @@
+.mainTaskList{
+  display: flex;
+  flex-direction: column;
+}
+
+.mainTaskList > ion-label{
+  padding-left: 16px;
+  font-size: 18px;
+  font-weight: 500;
+  margin-bottom: 4px;
+  margin-top: -2rem;
+}
+
+ ion-item-sliding{
+  border-radius: 6px;
+ }
+
+ ion-modal{
+ --height: auto;
+ }
+
+ .block{
+  height: 300px;
+ }
+
+ ion-checkbox > ion-label:nth-child(2){
+  font-size: 14px;
+  opacity: 0.6;
+ }

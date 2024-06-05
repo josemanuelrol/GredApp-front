@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { authGuard } from './core/guards/auth.guard';
 
 export const routes: Routes = [
   {
@@ -6,24 +7,21 @@ export const routes: Routes = [
     loadChildren: () => import('./auth/auth.routes').then((m) => m.routes),
   },
   {
-    path: 'home',
-    loadComponent: () => import('./home/home.page').then((m) => m.HomePage),
-  },
-  {
-    path: 'notes',
-    loadChildren: () => import('./notes/notes.routes').then((m) => m.routes),
-  },
-  {
-    path: 'tasks',
-    loadChildren: () => import('./tasks/tasks.routes').then((m) => m.routes),
-  },
-  {
-    path: 'calendar',
-    loadChildren: () => import('./calendar/calendar.routes').then((m) => m.routes),
+    path: 'app',
+    loadChildren: () => import('./application/main/main.routes').then((m) => m.routes),
+    canMatch: [authGuard]
   },
   {
     path: '',
-    redirectTo: 'home',
+    redirectTo: 'app',
     pathMatch: 'full',
   },
+  {
+    path: '**',
+    redirectTo: '404',
+  },
+  {
+    path: 'config-main',
+    loadComponent: () => import('./application/config/config-main/config-main.page').then( m => m.ConfigMainPage)
+  }
 ];

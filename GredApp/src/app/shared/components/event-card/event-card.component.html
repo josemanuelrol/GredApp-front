@@ -1,0 +1,30 @@
+<ion-card>
+  <ion-button class="trashIcon" shape="round" fill="clear" (click)="onDelete()">
+    <ion-icon slot="icon-only" name="trash" color="danger"></ion-icon>
+  </ion-button>
+  <ion-button class="editIcon" shape="round" fill="clear" (click)="onClick()">
+    <ion-icon slot="icon-only" name="create" color="dark"></ion-icon>
+  </ion-button>
+  <ion-card-header>
+    <ion-card-title>{{event()!.titulo}}</ion-card-title>
+  </ion-card-header>
+  <ion-card-content>
+    <ion-list inset="true">
+      <ion-item lines="none" color="light">
+        <ion-input readonly="true" [value]="event()!.fecha" labelPlacement="floating">
+          <ion-label slot="label"><strong>Fecha</strong></ion-label></ion-input>
+      </ion-item>
+      <ion-item lines="none" color="light">
+        @if(event()!.allDay){
+        <ion-input readonly="true" labelPlacement="floating" value="Si">
+          <ion-label slot="label"><strong>Todo el día</strong></ion-label>
+        </ion-input>
+        }@else {
+        <ion-input readonly="true" value="No" labelPlacement="floating">
+          <ion-label slot="label"><strong>Todo el día</strong></ion-label>
+        </ion-input>
+        }
+      </ion-item>
+    </ion-list>
+  </ion-card-content>
+</ion-card>

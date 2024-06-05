@@ -1,13 +1,31 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>register</ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">register</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content scrollY="false" scrollX="false">
+    <ion-grid fixed="fixed">
+      <ion-row class="ion-justify-content-center">
+        <ion-col size="12" sizeLg="8">
+          <ion-card>
+            <ion-card-header class="ion-text-center">
+              <ion-card-subtitle class="ion-margin-top">Registrate</ion-card-subtitle>
+              <img style="height: 8rem; width: 8rem;" alt="logo" src="../../../assets/logo/logo.png" />
+            </ion-card-header>
+            <ion-card-content>
+              <form [formGroup]="registerForm" (ngSubmit)="register()">
+                <ion-input type="text" fill="solid" label="Usuario" labelPlacement="floating" helperText="Introduce tu usuario"
+                  errorText="Usuario requerido" [formControl]="usernameControl" required="true" clearInput="true"></ion-input>
+                <ion-input type="email" fill="solid" label="Email" labelPlacement="floating" helperText="Introduce tu email"
+                  errorText="Introduce un email valido" [formControl]="emailControl" email clearInput="true"></ion-input>
+                <ion-input type="password" fill="solid" label="Contraseña" labelPlacement="floating"
+                  helperText="Introduce tu contraseña" errorText="Contraseña requerida" [formControl]="passwordControl"
+                  required="true">
+                </ion-input>
+                <div class="ion-text-center">
+                  <ion-button [disabled]="registerForm.invalid" class="ion-margin-top ion-padding-top"
+                    type="submit">Registrarse</ion-button>
+                </div>
+              </form>
+            </ion-card-content>
+          </ion-card>
+          <ion-label class="ion-margin-top">¿Tienes cuenta? <a href="auth/login" >Inicia sesión</a></ion-label>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
 </ion-content>

@@ -1,0 +1,44 @@
+$card-content-padding: 12px;
+
+.task-container{
+  display: grid;
+  gap: 16px;
+  padding: 16px;
+  grid-template-columns: repeat(auto-fit, minmax(225px,1fr));
+}
+
+.mainTaskList{
+  display: flex;
+  flex-direction: column;
+  ion-label:nth-child(1){
+    padding-left: 16px;
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+}
+
+ion-card{
+  display: flex;
+  align-items: center;
+  margin: 0;
+  ion-card-header{
+    padding: $card-content-padding;
+  }
+  ion-card-title{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 20px;
+  }
+}
+
+ion-header{
+  ion-toolbar{
+    ion-buttons{
+      ion-button{
+        padding-right: 8px;
+      }
+    }
+  }
+}

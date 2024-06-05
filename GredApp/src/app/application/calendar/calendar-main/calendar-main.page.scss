@@ -1,0 +1,22 @@
+ion-datetime{
+  border-radius: 24px;
+}
+
+ion-col{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+}
+
+.messageEmpty{
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.messageCol{
+  align-items: flex-start;
+  padding-inline: 12px;
+}
