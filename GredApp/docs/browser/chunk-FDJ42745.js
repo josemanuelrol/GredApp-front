@@ -1,0 +1,1 @@
+import"./chunk-XD4PSF4R.js";var e=[{path:"",loadComponent:()=>import("./chunk-64QTYXKG.js").then(t=>t.ConfigMainPage)},{path:"user-detail",loadComponent:()=>import("./chunk-Y24ACYS7.js").then(t=>t.UserDetailPage)}];export{e as routes};
