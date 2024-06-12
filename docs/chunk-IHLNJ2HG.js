@@ -1,1 +1,0 @@
-import"./chunk-XD4PSF4R.js";var o=[{path:"",loadComponent:()=>import("./chunk-6SZAMEV7.js").then(t=>t.TasksMainPage)},{path:"tasklist/:id",loadComponent:()=>import("./chunk-KHFGOP3M.js").then(t=>t.TaskListDetailPage)},{path:"completed-tasks",loadComponent:()=>import("./chunk-OELWXQR6.js").then(t=>t.CompletedTasksPage)}];export{o as routes};
