@@ -9,7 +9,7 @@ import { environment } from './environments/environment';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { authInterceptor } from './app/core/interceptors/auth.interceptor';
 import localeES from '@angular/common/locales/es'
-import { HashLocationStrategy, registerLocaleData } from '@angular/common';
+import { registerLocaleData } from '@angular/common';
 registerLocaleData(localeES,'es')
 
 if (environment.production) {
@@ -18,7 +18,7 @@ if (environment.production) {
 
 bootstrapApplication(AppComponent, {
   providers: [
-    { provide: RouteReuseStrategy, useClass: HashLocationStrategy},
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy},
     { provide: LOCALE_ID, useValue: 'es'},
     provideIonicAngular({mode:'ios'}),
     provideRouter(routes, withViewTransitions(), withComponentInputBinding()),
