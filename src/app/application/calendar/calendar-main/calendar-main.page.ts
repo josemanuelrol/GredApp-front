@@ -125,7 +125,9 @@ export class CalendarMainPage implements OnInit {
       component: EventDetailComponent,
       componentProps: {
         data: this.date
-      }
+      },
+      initialBreakpoint: 0.5,
+      breakpoints:[0,0.5,1]
     });
     modal.present();
 

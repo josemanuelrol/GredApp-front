@@ -1,6 +1,6 @@
 import { Task } from './../../../core/models/task';
-import { AfterViewInit, Component, OnInit, inject, input } from '@angular/core';
-import { ModalController, IonList, IonListHeader, IonLabel, IonItemSliding, IonItem, IonCheckbox, IonItemOptions, IonItemOption, IonFab, IonFabButton, IonIcon, IonContent, IonModal, IonHeader, IonToolbar, IonButtons, IonButton, IonTitle, IonInput, IonAlert } from "@ionic/angular/standalone";
+import { Component, OnInit, inject, input } from '@angular/core';
+import { AlertController, ModalController, IonList, IonListHeader, IonLabel, IonItemSliding, IonItem, IonCheckbox, IonItemOptions, IonItemOption, IonFab, IonFabButton, IonIcon, IonContent, IonModal, IonHeader, IonToolbar, IonButtons, IonButton, IonTitle, IonInput, IonAlert } from "@ionic/angular/standalone";
 import { TaskList } from 'src/app/core/models/task-list';
 import { TasksListsService } from 'src/app/core/services/tasksLists.service';
 import { TaskDetailComponent } from '../task-detail/task-detail.component';
@@ -22,19 +22,37 @@ export class TaskListComponent implements OnInit {
 
   emptyMessage = "";
 
-  constructor(private modalController:ModalController) { }
+  constructor(private modalController: ModalController, private alertCtrl: AlertController) { }
 
   ngOnInit() {
     console.log();
   }
 
-  onDelete(task: Task) {
-    this.taskListService.deleteTask(this.mainTaskList()._id!.$oid, task._id!.$oid).then((response) => {
-      this.toastService.presentSuccessToast('top', 'Tarea eliminada');
-      this.taskListService.emitDataUpdateDeleteTask();
-    }).catch((error) => {
-      this.toastService.presentErrorToast('top','Ha ocurrido un error');
-    });
+  async onDelete(task: Task) {
+    const alert = await this.alertCtrl.create({
+      header: '¿Desea eliminar esta tarea?',
+      message: 'Esta tarea será eliminada permanentemente',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+        },
+        {
+          text: 'Eliminar',
+          role: 'delete',
+          handler: () => {
+            this.taskListService.deleteTask(this.mainTaskList()._id!.$oid, task._id!.$oid).then((response) => {
+              this.toastService.presentSuccessToast('top', 'Tarea eliminada');
+              this.taskListService.emitDataUpdateDeleteTask();
+            }).catch((error) => {
+              this.toastService.presentErrorToast('top', 'Ha ocurrido un error');
+            });
+          },
+        }
+      ],
+    })
+
+    await alert.present()
   }
 
   async onClick(task: Task, event: any) {
@@ -45,11 +63,11 @@ export class TaskListComponent implements OnInit {
       //Hacer servicio de mensaje toast
       this.taskListService.emitDataUpdateCheckedTask();
     }).catch((error) => {
-      this.toastService.presentErrorToast('top','Ha ocurrido un error');
+      this.toastService.presentErrorToast('top', 'Ha ocurrido un error');
     });
   }
 
-  async openModal(task:Task) {
+  async openModal(task: Task) {
     const modal = await this.modalController.create({
       component: TaskDetailComponent,
       componentProps: {
@@ -61,10 +79,10 @@ export class TaskListComponent implements OnInit {
     const { data, role } = await modal.onWillDismiss();
 
     if (role === 'confirm') {
-      this.taskListService.updateTask(this.mainTaskList()._id!.$oid, task._id!.$oid, data).then((response)=>{
+      this.taskListService.updateTask(this.mainTaskList()._id!.$oid, task._id!.$oid, data).then((response) => {
         this.taskListService.emitDataUpdateNewTask();
-      }).catch((error)=>{
-        this.toastService.presentErrorToast('top','Ha ocurrido un error');
+      }).catch((error) => {
+        this.toastService.presentErrorToast('top', 'Ha ocurrido un error');
       });
     }
   }

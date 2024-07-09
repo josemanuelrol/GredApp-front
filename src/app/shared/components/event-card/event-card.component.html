@@ -15,15 +15,9 @@
           <ion-label slot="label"><strong>Fecha</strong></ion-label></ion-input>
       </ion-item>
       <ion-item lines="none" color="light">
-        @if(event()!.allDay){
-        <ion-input readonly="true" labelPlacement="floating" value="Si">
+        <ion-input readonly="true" [value]="!event()!.allDay ? 'No' : 'Si'" labelPlacement="floating">
           <ion-label slot="label"><strong>Todo el día</strong></ion-label>
         </ion-input>
-        }@else {
-        <ion-input readonly="true" value="No" labelPlacement="floating">
-          <ion-label slot="label"><strong>Todo el día</strong></ion-label>
-        </ion-input>
-        }
       </ion-item>
     </ion-list>
   </ion-card-content>
